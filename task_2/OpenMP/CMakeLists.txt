@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.16)
+project(task_2 LANGUAGES CXX)
+find_package(OpenMP REQUIRED)
+add_executable(task_2 main.cpp)
+target_link_libraries(task_2 PRIVATE OpenMP::OpenMP_CXX)
