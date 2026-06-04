@@ -3,14 +3,24 @@
 #include <vector>
 #include <cstdlib>
 
-double foo(const std::vector<long long>& arr) {
+// matrix = [N x M]
+// vec = [M x 1]
+// res = [N x 1]
+double foo(const std::vector<std::vector<int>>& matrix,
+		const std::vector<int>& vec) {
 	double start_time = omp_get_wtime();
-	long long sum = 0;
-	std::size_t N = arr.size();
+	std::size_t N = matrix.size();
+	std::size_t M = vec.size();
+	std::vector<int> res(N);
 	
-	#pragma omp parallel for reduction(+:sum)
+	// parallelizm of outer loop
+	#pragma omp parallel for default(none) shared(matrix, vec, result, N, M)
 	for(std::size_t i=0; i<N; ++i) {
-		sum += arr[i];
+		double sum = 0; //private for each thread
+		for (std::size_t j=0;j<M;++j) {
+			sum += matrix[i][j] * vec[j]
+		}
+		res[i] = sum;
 	}
 
 	double end_time = omp_get_wtime();
@@ -18,24 +28,5 @@ double foo(const std::vector<long long>& arr) {
 }
 
 int main() {
-	std::size_t N = 10;
-	std::cout << "N = " << N << " Time = ";
-	std::vector<long long> arr(N);
-	for (std::size_t i=0;i<N;++i) {
-		arr[i] = std::rand() % 100; // just example
-	}
-	std::cout << foo(arr) << std::endl;
-	N = 1000;
-	arr.resize(N);
-	for (std::size_t i=0;i<N;++i) {
-		arr[i] = std::rand() % 100;
-	}
-	std::cout << "N = " << N << " Time = " << foo(arr) << std::endl;
-	N = 10000000;
-	arr.resize(N);
-	for (std::size_t i=0;i<N;++i) {
-		arr[i] = std::rand() % 100;
-	}
-	std::cout << "N = " << N << " Time = " << foo(arr) << std::endl;
 	return 0;
 }
