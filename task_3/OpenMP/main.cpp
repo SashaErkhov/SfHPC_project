@@ -28,8 +28,7 @@ double foo(const std::vector<std::vector<int>>& matrix,
 }
 
 int main() {
-	std::size_t N = 10;
-	while (N < 11000){
+	for(std::size_t N = 10; N<11000; N *= 2) {
 		std::vector<std::vector<int>> matrix(N, std::vector<int>(N, 0));
 		std::vector<int> vec(N,0);
 		for(std::size_t i=0;i<N;++i) {
@@ -44,8 +43,6 @@ int main() {
 		}
 		average /= 100;
 		std::cout<<"N = "<<N<<" Time = "<<average<<std::endl;
-		N *= 2;
-
 	}
 	return 0;
 }

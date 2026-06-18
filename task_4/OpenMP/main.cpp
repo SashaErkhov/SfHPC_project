@@ -28,8 +28,7 @@ double foo(std::size_t total) {
 
 int main() {
 	const double PI = 3.14159265358979323846;
-	std::size_t N = 10000;
-	while (N < 100000001) {
+  for (std::size_t N=10000; N < 100000001; N *= 10) {
 		double time = 0.;
 		double pi = 0.;
 		double start = 0.;
@@ -42,7 +41,6 @@ int main() {
 		}
 		time /= 100;
 		std::cout<<"N = "<<N<<" Time = "<<time<<" abs = "<<std::abs(pi-PI)<<std::endl;
-		N *= 10;
 	}
 	return 0;
 }
