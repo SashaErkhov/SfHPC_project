@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 3.16)
+project(task_1 LANGUAGES CXX)
+find_package(OpenCL REQUIRED)
+add_executable(task_1 main.cpp)
+target_include_directories(task_1 PRIVATE ${OpenCL_INCLUDE_DIRS})
+target_link_libraries(task_1 PRIVATE ${OpenCL_LIBRARIES})
+target_compile_options(task_1 PRIVATE -Wno-deprecated-declarations)
