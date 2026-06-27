@@ -1,0 +1,5 @@
+cmake_minimum_required(VERSION 3.16)
+project(task_5 LANGUAGES CXX)
+find_package(MPI REQUIRED)
+add_executable(task_5 main.cpp)
+target_link_libraries(task_5 PRIVATE MPI::MPI_CXX)
